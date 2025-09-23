@@ -9,14 +9,14 @@ const ProjectsSection = () => {
       title: "Data Clustering Application",
       description: "Android client-server application for performing data clustering and storage. The Android app communicates with a backend server that provides clustering algorithms and persistent data services, enabling efficient data analysis on mobile devices.",
       technologies: ["Java", "Android SDK", "Socket Programming", "Server-side Java", "Data mining", "SQL", "OO Design", "Test writing"],
-      githubUrl: "https://github.com/johndoe/data-clustering-app",
+      githubUrl: "https://github.com/loiudicemichele/data-clustering",
       featured: true
     },
     {
       title: "Chess",
       description: " Fully featured chess game that runs in the terminal and supports all official rules: piece movement, check, checkmate, stalemate, castling, en passant, and pawn promotion.",
       technologies: ["Python", "Docker", "Workflows", "CLI Interfaces", "Chess", "OO Design", "Test writing"],
-      githubUrl: "https://github.com/johndoe/task-manager",
+      githubUrl: "https://github.com/loiudicemichele/chess",
     },
     {
       title: "Algorithms and Data Structures",
