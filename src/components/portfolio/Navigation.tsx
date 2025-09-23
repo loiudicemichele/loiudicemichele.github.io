@@ -8,7 +8,8 @@ const Navigation = () => {
     { id: "about", label: "About" },
     { id: "experience", label: "Experience" },
     { id: "projects", label: "Projects" },
-    { id: "certificates", label: "Certificates" }
+    { id: "certificates", label: "Certificates" },
+    { id: "leetcode", label: "LeetCode Statistics" }
   ];
 
   useEffect(() => {
