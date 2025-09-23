@@ -1,3 +1,18 @@
+import { 
+  DiJavascript, DiPython, DiJava, DiRust, DiPhp, DiRuby, DiSwift, DiHtml5, DiCss3,
+  DiReact, DiNodejsSmall
+} from 'react-icons/di';  
+import {
+    PiFileCBold, PiFileCppBold
+} from 'react-icons/pi';
+import {
+    TbBrandTypescript, TbBrandGolang
+} from 'react-icons/tb';
+import { Code2 } from 'lucide-react';
+
+import { Badge } from '@/components/ui/badge';
+import { XCircle, CheckCircle} from "lucide-react";
+
 const profile_mock = Object({
     "username": "Mickh_",
     "name": "Mickh_",
@@ -462,18 +477,6 @@ const countryCodes = {
   'Zimbabwe': 'ZW'
 };
 
-import { 
-  DiJavascript, DiPython, DiJava, DiRust, DiPhp, DiRuby, DiSwift, DiHtml5, DiCss3,
-  DiReact, DiNodejsSmall
-} from 'react-icons/di';  
-import {
-    PiFileCBold, PiFileCppBold
-} from 'react-icons/pi';
-import {
-    TbBrandTypescript, TbBrandGolang
-} from 'react-icons/tb';
-import { Code2 } from 'lucide-react';
-
 const languageIcons: { [key: string]: React.ComponentType<any> } = {
     "JavaScript": DiJavascript,
     "TypeScript": TbBrandTypescript,
@@ -493,4 +496,63 @@ const languageIcons: { [key: string]: React.ComponentType<any> } = {
     "Unknown": Code2
 };
 
-export { stats_mock, profile_mock, languages_mock, countryCodes, languageIcons };
+const lastAcceptedProblems_mock = {
+    "count": 3,
+    "submission": [{
+        "title": "Add Binary",
+        "titleSlug": "add-binary",
+        "timestamp": "1758392833",
+        "statusDisplay": "Accepted",
+        "lang": "python"
+    }, {
+        "title": "Pascal's Triangle",
+        "titleSlug": "pascals-triangle",
+        "timestamp": "1758384952",
+        "statusDisplay": "Accepted",
+        "lang": "python"
+    }, {
+        "title": "Spiral Matrix",
+        "titleSlug": "spiral-matrix",
+        "timestamp": "1758384244",
+        "statusDisplay": "Accepted",
+        "lang": "python"
+    }]
+}
+
+const formatDate = (timestamp: string): string => {
+  const date = new Date(parseInt(timestamp) * 1000);
+  if (isNaN(date.getTime())) return "Invalid Date";
+  return date.toLocaleDateString('en-US', { 
+    year: 'numeric', 
+    month: 'short', 
+    day: 'numeric' 
+  });
+};
+
+Object.defineProperty(String.prototype, 'capitalize', {
+  value: function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+  },
+  enumerable: false
+});
+
+const getStatusBadge = (status: string) => {
+  const isAccepted = status.toLowerCase() === 'accepted';
+  const Icon = isAccepted ? CheckCircle : XCircle;
+  const colorClass = isAccepted 
+    ? 'bg-green-50 text-green-500 bg-transparent border-green-200 hover:bg-green-100' 
+    : 'bg-red-50 text-red-500 bg-transparent border-red-200 hover:bg-red-100';
+  
+  return (
+    <Badge 
+      variant="outline" 
+      className={`flex items-center gap-1 ${colorClass} transition-colors text-xs`}
+    >
+      <Icon size={14} />
+      {status}
+    </Badge>
+  );
+};
+
+export { stats_mock, profile_mock, languages_mock, countryCodes, languageIcons, 
+    lastAcceptedProblems_mock, formatDate, getStatusBadge };

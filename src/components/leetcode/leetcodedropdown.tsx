@@ -1,12 +1,12 @@
 // components/LeetCodeDropdown.tsx
 import React, { useState, useRef, useEffect } from 'react';
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import DoubleDonut from "@/components/ui/donutchart";
 import { Progress } from "@/components/ui/progress";
 import ReactCountryFlag from "react-country-flag";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Calendar, ExternalLink} from "lucide-react";
 import { cn } from "@/lib/utils";
-import { languageIcons } from "@/components/leetcode/utils";
+import { languageIcons, formatDate, getStatusBadge } from "@/components/leetcode/utils";
 import AvatarWithText from '@/components/ui/avatar-text';
 
 interface LeetCodeDropdownProps {
@@ -15,6 +15,7 @@ interface LeetCodeDropdownProps {
   stats: any;
   languageStats: any;
   countryCodes: { [key: string]: string };
+  lastAccepted: any;
 }
 
 const LeetCodeDropdown: React.FC<LeetCodeDropdownProps> = ({
@@ -22,7 +23,8 @@ const LeetCodeDropdown: React.FC<LeetCodeDropdownProps> = ({
   profileStats,
   stats,
   languageStats,
-  countryCodes
+  countryCodes,
+  lastAccepted
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -75,7 +77,7 @@ const LeetCodeDropdown: React.FC<LeetCodeDropdownProps> = ({
 
   return (
     <div className="max-w-4xl mx-auto">
-      <Card className={cn(
+      <Card className={cn( 
         "bg-card border-border/50 backdrop-blur-sm transition-all duration-300",
         isOpen ? "rounded-2xl" : "rounded-2x1"
       )}>
@@ -140,7 +142,7 @@ const LeetCodeDropdown: React.FC<LeetCodeDropdownProps> = ({
                   { label: 'Medium', solved: problems.mediumProblems[0], total: problems.mediumProblems[1], value: (problems.mediumProblems[0] / problems.mediumProblems[1]) * 100, color: 'text-yellow-400' },
                   { label: 'Hard', solved: problems.hardProblems[0], total: problems.hardProblems[1], value: (problems.hardProblems[0] / problems.hardProblems[1]) * 100, color: 'text-red-400' }
                 ].map((item, index) => (
-                  <div key={index} className="flex-1 flex flex-col items-center gap-2">
+                  <div key={item.label} className="flex-1 flex flex-col items-center gap-2">
                     <div className="flex flex-row items-center gap-4">
                       <div className="text-xl text-muted-foreground">{item.label}</div>
                       <div className={`text-lg font-semibold ${item.color}`}>
@@ -167,7 +169,7 @@ const LeetCodeDropdown: React.FC<LeetCodeDropdownProps> = ({
                     { label: 'Ranking', value: profile.ranking.toLocaleString() },
                     { label: 'Reputation', value: profile.reputation },
                   ].map((stat, index) => (
-                    <div key={index} className="flex justify-between items-center py-2 border-b border-border/20">
+                    <div key={stat.label} className="flex justify-between items-center py-2 border-b border-border/20">
                       <span className="text-muted-foreground text-sm">{stat.label}</span>
                       <span className="text-primary font-medium">{stat.value}</span>
                     </div>
@@ -188,8 +190,8 @@ const LeetCodeDropdown: React.FC<LeetCodeDropdownProps> = ({
                     {Object.entries(userStats.languages).map(([lang, count], index) => {
                     const IconComponent = languageIcons[lang] || languageIcons["Unknown"];
                     return (
-                        <div key={index} className="flex justify-between items-center py-2 border-b border-border/20">
-                        <div className="flex items-center gap-2">  {/* Wrapper per icona + nome */}
+                        <div key={lang} className="flex justify-between items-center py-2 border-b border-border/20">
+                        <div className="flex items-center gap-2">
                             <IconComponent className="w-4 h-4 text-gold hover-lift:hover flex-shrink-0" />
                             <span className="text-muted-foreground text-sm">{lang}</span>
                         </div>
@@ -200,6 +202,63 @@ const LeetCodeDropdown: React.FC<LeetCodeDropdownProps> = ({
                 </div>
               </div> 
             </div>
+
+            {/* Last aaccepted problems */}
+            <div className="mt-8">
+              <h3 className="text-xl font-semibold text-primary mb-8">Last Submitted Problems</h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {lastAccepted.submission.map((submission, index) => {
+                  const lang = submission.lang.capitalize();
+                  const IconComponent = languageIcons[lang] || languageIcons["Unknown"];
+                  const statusBadge = getStatusBadge(submission.statusDisplay);
+
+                  return (
+                    <a
+                      key={submission.titleSlug} 
+                      href={`https://leetcode.com/problems/${submission.titleSlug}/`}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      <Card
+                        className="hover-lift border-border/50 hover:border-primary/30 transition-all duration-300 animate-slide-up group"
+                        style={{ animationDelay: `${index * 0.1}s` }}
+                      > 
+                        <CardHeader>
+                          <div className="flex items-start justify-between mb-3">
+                            <div className="flex items-center gap-1 text-muted-foreground text-sm">
+                              <Calendar size={14} />
+                              {formatDate(submission.timestamp)}
+                            </div>
+                          </div>
+                          
+                          <CardTitle className="text-gold group-hover:text-primary transition-colors">
+                            <div className="flex items-center justify-center gap-1 glow_gold text-primary transition-colors group hover:underline text-xl">
+                              {submission.title}
+                              <ExternalLink className={cn('opacity-80 group-hover:opacity-100 transition-opacity', "w-5 h-8")} />
+                            </div>
+                          </CardTitle>
+                        </CardHeader> 
+                        
+                        <CardContent>
+                          <div className="space-y-4">
+
+                            <div className="flex justify-center">
+                              {statusBadge}
+                            </div>
+
+                            <div className="flex items-center justify-center gap-2">
+                                <IconComponent className="w-4 h-4 text-gold hover-lift:hover flex-shrink-0" />
+                                <p className="text-muted-foreground text-sm font-medium text-sm capitalize">{lang}</p>
+                            </div>
+
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+
           </CardContent>
         </div>
       </Card>
