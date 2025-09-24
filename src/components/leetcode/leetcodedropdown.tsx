@@ -7,6 +7,7 @@ import ReactCountryFlag from "react-country-flag";
 import { ChevronDown, ChevronUp, Calendar, ExternalLink} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { languageIcons, formatDate, getStatusBadge } from "@/components/leetcode/utils";
+import { HeatmapCalendar } from '@/components/leetcode/HeatmapCalendar'
 import AvatarWithText from '@/components/ui/avatar-text';
 
 interface LeetCodeDropdownProps {
@@ -16,6 +17,7 @@ interface LeetCodeDropdownProps {
   languageStats: any;
   countryCodes: { [key: string]: string };
   lastAccepted: any;
+  calendar: any;
 }
 
 const LeetCodeDropdown: React.FC<LeetCodeDropdownProps> = ({
@@ -24,7 +26,8 @@ const LeetCodeDropdown: React.FC<LeetCodeDropdownProps> = ({
   stats,
   languageStats,
   countryCodes,
-  lastAccepted
+  lastAccepted,
+  calendar
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -203,8 +206,8 @@ const LeetCodeDropdown: React.FC<LeetCodeDropdownProps> = ({
               </div> 
             </div>
 
-            {/* Last aaccepted problems */}
-            <div className="mt-8">
+            {/* Last accepted problems */}
+            <div className="mt-8 mb-8">
               <h3 className="text-xl font-semibold text-primary mb-8">Last Submitted Problems</h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {lastAccepted.submission.map((submission, index) => {
@@ -240,22 +243,31 @@ const LeetCodeDropdown: React.FC<LeetCodeDropdownProps> = ({
                         
                         <CardContent>
                           <div className="space-y-4">
-
                             <div className="flex justify-center">
                               {statusBadge}
                             </div>
-
                             <div className="flex items-center justify-center gap-2">
                                 <IconComponent className="w-4 h-4 text-gold hover-lift:hover flex-shrink-0" />
                                 <p className="text-muted-foreground text-sm font-medium text-sm capitalize">{lang}</p>
                             </div>
-
                           </div>
                         </CardContent>
                       </Card>
+
                     </a>
                   );
                 })}
+              </div>
+            </div>
+              
+            {/* Activity Heatmap */}
+            <div className="mt-8">
+              <div className="flex justify-center">
+                <HeatmapCalendar
+                  key="calenderHeatmap"
+                  submissionCalendar={calendar.submissionCalendar}
+                  className="w-full"
+                />
               </div>
             </div>
 

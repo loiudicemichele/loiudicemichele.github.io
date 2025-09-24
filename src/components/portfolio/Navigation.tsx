@@ -9,7 +9,7 @@ const Navigation = () => {
     { id: "experience", label: "Experience" },
     { id: "projects", label: "Projects" },
     { id: "certificates", label: "Certificates" },
-    { id: "leetcode", label: "LeetCode Statistics" }
+    { id: "leetcode", label: "Other" }
   ];
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const Navigation = () => {
   };
 
   return (
-    <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 animate-fade-in">
+    <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 ">
       <div className="bg-card/80 backdrop-blur-lg rounded-full border border-border/50 px-6 py-3 shadow-lg">
         <div className="flex gap-2">
           {navItems.map((item) => (

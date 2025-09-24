@@ -481,6 +481,7 @@ const languageIcons: { [key: string]: React.ComponentType<any> } = {
     "JavaScript": DiJavascript,
     "TypeScript": TbBrandTypescript,
     "Python": DiPython,
+    "Python3": DiPython,
     "Java": DiJava,
     "C": PiFileCBold,
     "C++": PiFileCppBold,
@@ -554,5 +555,9 @@ const getStatusBadge = (status: string) => {
   );
 };
 
+const calendar_mock = {
+  "submissionCalendar": "{\"1739232000\": 2, \"1739318400\": 7, \"1739404800\": 7, \"1740787200\": 10, \"1740873600\": 11, \"1740960000\": 9, \"1741392000\": 12, \"1744588800\": 1, \"1757462400\": 4, \"1757548800\": 9, \"1758240000\": 12, \"1758326400\": 18, \"1727308800\": 8, \"1727395200\": 1, \"1727481600\": 9, \"1727568000\": 4}"
+}
+
 export { stats_mock, profile_mock, languages_mock, countryCodes, languageIcons, 
-    lastAcceptedProblems_mock, formatDate, getStatusBadge };
+    lastAcceptedProblems_mock, calendar_mock, formatDate, getStatusBadge };

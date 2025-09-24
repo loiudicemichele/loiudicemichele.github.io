@@ -1,7 +1,7 @@
 // components/LeetCodeStats.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { stats_mock, profile_mock, languages_mock, countryCodes, lastAcceptedProblems_mock } from "@/components/leetcode/utils";
+import { stats_mock, profile_mock, languages_mock, countryCodes, calendar_mock, lastAcceptedProblems_mock } from "@/components/leetcode/utils";
 import LeetCodeDropdown from '../leetcode/leetcodedropdown';
 
 interface LeetCodeStatsProps {
@@ -14,6 +14,7 @@ const LeetCodeSection: React.FC<LeetCodeStatsProps> = ({ username = 'Mickh_' }) 
   const [stats, setStats] = useState<any>(null);
   const [languageStats, setLanguageStats] = useState<any>(null);
   const [lastAcceptedProblems, setLastAcceptedProblems] = useState<any>(null);
+  const [calendar, setCalendar] = useState<any>(null);
 
   // Fetching status & error
   const [loading, setLoading] = useState(true);
@@ -38,6 +39,9 @@ const LeetCodeSection: React.FC<LeetCodeStatsProps> = ({ username = 'Mickh_' }) 
         // Initial Accepted problems count set at 3 by default
         response = await axios.get(`${APIURL}/${username}/acSubmission?limit=3`);
         setLastAcceptedProblems(response.data)
+
+        response = await axios.get(`${APIURL}/${username}/calendar`);
+        setCalendar(response.data)
         
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Unknown error');
@@ -45,6 +49,7 @@ const LeetCodeSection: React.FC<LeetCodeStatsProps> = ({ username = 'Mickh_' }) 
         setStats(stats_mock)
         setLanguageStats(languages_mock)
         setLastAcceptedProblems(lastAcceptedProblems_mock)
+        setCalendar(calendar_mock)
       } finally {
         setLoading(false);
       }
@@ -55,7 +60,6 @@ const LeetCodeSection: React.FC<LeetCodeStatsProps> = ({ username = 'Mickh_' }) 
   }, [username]);
 
   if (loading) return <div className="text-center py-12 text-muted-foreground">Loading LeetCode stats...</div>;
-  // if (error || !stats || !profileStats) return  <div className="text-center py-12 text-muted-foreground">Couldn't load the statistics...</div>;
   return (
     <section id="leetcode" className="py-20 px-6">
       <div className="max-w-7xl mx-auto">
@@ -75,6 +79,7 @@ const LeetCodeSection: React.FC<LeetCodeStatsProps> = ({ username = 'Mickh_' }) 
           languageStats={languageStats}
           countryCodes={countryCodes}
           lastAccepted={lastAcceptedProblems}
+          calendar={calendar}
         />
       </div>
     </section>
