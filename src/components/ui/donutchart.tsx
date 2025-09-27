@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 
 interface DoubleDonutProps {
   solvedPercentage: number;
-  acceptanceRate: number;
+  acceptanceRate: any;
   size?: 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
 }

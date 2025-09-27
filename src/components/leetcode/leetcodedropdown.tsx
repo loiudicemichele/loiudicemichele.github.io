@@ -53,7 +53,7 @@ const LeetCodeDropdown: React.FC<LeetCodeDropdownProps> = ({
   const userStats = { 
     totalSolved: stats.totalSolved || 56,
     acceptanceRate: 
-        stats.matchedUser?.acSubmissionNum?.count / stats.matchedUser?.acSubmissionNum?.totalSubmissionNum?.count * 100 || 58.6, 
+        (stats.matchedUserStats?.acSubmissionNum[0]?.submissions / stats.matchedUserStats?.totalSubmissionNum[0]?.submissions * 100).toFixed(1) || 58.6, 
     problemsSolved: problems,
     languages: {}
   }

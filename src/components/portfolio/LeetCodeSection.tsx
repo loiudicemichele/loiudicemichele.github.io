@@ -26,22 +26,25 @@ const LeetCodeSection: React.FC<LeetCodeStatsProps> = ({ username = 'Mickh_' }) 
         setLoading(true); 
         const APIURL = `https://alfa-leetcode-api.onrender.com`
         
-        // Fetching user profile data.
-        let response = await axios.get(`${APIURL}/${username}`);
-        setProfileStats(response.data)
+         const [
+          profileRes,
+          statsRes,
+          languageRes,
+          lastAcceptedRes,
+          calendarRes,
+        ] = await Promise.all([
+          axios.get(`${APIURL}/${username}`),
+          axios.get(`${APIURL}/userProfile/${username}`),
+          axios.get(`${APIURL}/languageStats?username=${username}`),
+          axios.get(`${APIURL}/${username}/acSubmission?limit=3`),
+          axios.get(`${APIURL}/${username}/calendar`),
+        ]);
 
-        response = await axios.get(`${APIURL}/userProfile/${username}`);
-        setStats(response.data);
- 
-        response = await axios.get(`${APIURL}/languageStats?username=${username}`);
-        setLanguageStats(response.data)
-        
-        // Initial Accepted problems count set at 3 by default
-        response = await axios.get(`${APIURL}/${username}/acSubmission?limit=3`);
-        setLastAcceptedProblems(response.data)
-
-        response = await axios.get(`${APIURL}/${username}/calendar`);
-        setCalendar(response.data)
+        setProfileStats(profileRes.data);
+        setStats(statsRes.data);
+        setLanguageStats(languageRes.data);
+        setLastAcceptedProblems(lastAcceptedRes.data);
+        setCalendar(calendarRes.data);
         
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Unknown error');
