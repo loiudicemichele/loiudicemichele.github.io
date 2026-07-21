@@ -16,15 +16,23 @@ const ExperienceSection = () => {
   const education = [
     {
       institution: "University of Bari",
-      degree: "Bachelor Degree in Computer Science",
-      period: "2023 - 2026 (Expected)",
-      relevantCourseworks: ["Data Structures", "Data Algorithms", "Software Engineering", "Database Systems", "Networking"] 
+      degree: "Master's Degree in Computer Science",
+      period: "2026 – Expected 2028",
+      relevantCourseworks: []
+    },
+    {
+      institution: "University of Bari",
+      degree: "Bachelor's Degree in Computer Science",
+      period: "2023 – 2026",
+      thesisTitle: "Deep Learning for Financial Decision Support — Cash Flow Forecasting",
+      thesisDescription: "Comparative study of ensemble, deep learning and foundation models for cash flow forecasting in the retail sector.",
+      relevantCourseworks: ["Computational Intellingece", "Knowledge Engineering", "Data Mining", "Data Structures", "Data Algorithms", "Software Engineering", "Networking"]
     },
     {
       institution: "I.I.S. G.B. Pentasuglia",
       degree: "High School Diploma",
-      period: "2018 - 2023",
-      relevantCourseworks: ["Foundation in programming", "mathematics", "computer systems"]
+      period: "2018 – 2023",
+      relevantCourseworks: ["Foundation in programming", "Mathematics", "Computer systems"]
     }
   ];
 
@@ -92,37 +100,53 @@ const ExperienceSection = () => {
               {education.map((edu, index) => (
                 <Card key={index} className="hover-lift border-border/50 hover:border-primary/30 transition-all duration-300">
                   <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <CardTitle className="text-gold">{edu.degree}</CardTitle>
-                        <CardDescription className="text-lg font-medium text-secondary">
-                          {edu.institution}
-                        </CardDescription>
+                    <div>
+                      <CardTitle className="text-gold">{edu.degree}</CardTitle>
+                      <CardDescription className="text-lg font-medium text-secondary">
+                        {edu.institution}
+                      </CardDescription>
+                    </div>
+                    <div className="flex justify-center items-center gap-1 text-muted-foreground text-sm mt-1">
+                      <Calendar size={14} />
+                      {edu.period}
+                    </div>
+                  </CardHeader> 
+                  <CardContent>
+                  <div className="space-y-6">
+                    {/* Thesis */}
+                    {edu.thesisTitle && (
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium text-foreground">Thesis:</span>
+                        <span className="text-sm text-muted-foreground italic">{edu.thesisTitle}</span>
                       </div>
-                      <div className="text-right">
-                        <div className="flex items-center gap-1 text-muted-foreground text-sm mb-1">
-                          <Calendar size={14} />
-                          {edu.period}
+                      {edu.thesisDescription && (
+                        <p className="text-sm text-muted-foreground mt-1 pl-1 border-l-2 border-primary/20 pl-3">
+                          {edu.thesisDescription}
+                        </p>
+                      )}
+                    </div>
+                  )}
+                    
+                    {/* Courseworks*/}
+                    {edu.relevantCourseworks.length > 0 && (
+                      <div>
+                        <h4 className="text-sm font-medium text-foreground">Most relevant courseworks:</h4>
+                        <div className="flex justify-center flex-wrap gap-2 mt-1">
+                          {edu.relevantCourseworks.map((coursework) => (
+                            <Badge 
+                              key={coursework} 
+                              variant="secondary" 
+                              className="bg-muted/30 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors text-xs"
+                            >
+                              {coursework}
+                            </Badge>
+                          ))}
                         </div>
                       </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-2">
-                      <h4 className="text-sm font-medium text-foreground">Most relevant courseworks:</h4>
-                      <div className="flex justify-center flex-wrap gap-2">
-                        {edu.relevantCourseworks.map( coursework =>
-                          <Badge 
-                          key={coursework} 
-                          variant="secondary" 
-                          className="bg-muted/30 text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors text-xs"
-                          >
-                            {coursework}
-                            </Badge>
-                        )}
-                      </div>
-                    </div>
-                  </CardContent>
+                    )}
+                  </div>
+                </CardContent>
                 </Card>
               ))}
             </div>

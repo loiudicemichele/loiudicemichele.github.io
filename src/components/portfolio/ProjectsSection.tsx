@@ -5,6 +5,27 @@ import { Github, ExternalLink, Code2 } from "lucide-react";
 
 const ProjectsSection = () => {
   const projects = [
+     {
+      title: "Cash Flow Forecasting for GDO",
+      description: "Comparative study of ensemble (XGBoost), deep learning (LSTM, GRU) and foundation models (Chronos-2) for 90-day corporate cash flow forecasting in the Large-Scale Retail Trade sector. Developed under academic supervision following the CRISP-DM methodology — from synthetic data generation to statistically validated model comparison.",
+      technologies: ["Python", "XGBoost", "LSTM", "GRU", "Chronos-2", "CRISP-DM", "Time Series", "Deep Learning"],
+      githubUrl: "https://github.com/loiudicemichele/CashFlowManagement",
+      featured: true
+    },
+    {
+      title: "Hybrid Intrusion Detection System",
+      description: "Intelligent IDS combining Deep Learning (Autoencoder, DNN) for zero-day threat detection and Bayesian Networks for diagnostic explanation. Classifies network traffic into Normal, DoS, Probe, R2L, and U2R categories using the NSL-KDD dataset.",
+      technologies: ["Python", "Deep Learning", "Bayesian Networks", "XGBoost", "Random Forest", "Autoencoder", "NSL-KDD"],
+      githubUrl: "https://github.com/loiudicemichele/IntrusionDetectionSystem",
+      featured: true
+    },
+    {
+      title: "Online News Popularity Prediction",
+      description: "Classification system applying the CRISP-DM methodology to the Mashable Online News Popularity dataset. Predicts whether an article will attract low, medium, or high social engagement before publication. Three classifiers are developed and compared — Decision Tree, Random Forest, and Multi-Layer Perceptron (MLP) — all tuned via 5-fold stratified cross-validation and grid search.",
+      technologies: ["Python", "CRISP-DM", "Scikit-learn", "PyTorch", "Pandas", "NumPy", "Matplotlib", "Seaborn", "UMAP"],
+      githubUrl: "https://github.com/loiudicemichele/OnlineNewsPopularity",
+      featured: false
+    },
     {
       title: "Data Clustering Application",
       description: "Android client-server application for performing data clustering and storage. The Android app communicates with a backend server that provides clustering algorithms and persistent data services, enabling efficient data analysis on mobile devices.",

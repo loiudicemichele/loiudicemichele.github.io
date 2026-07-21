@@ -92,14 +92,21 @@ const HeroSection = () => {
 
             {/* Education Recap */}
             <div className="pt-4">
-              <h3 className="text-lg font-semibold text-gold mb-3">Education</h3>
-              <div className="space-y-2">
-                <p className="text-foreground">
-                  <span className="font-medium">Bachelor of Computer Science</span>
-                </p>
-                <p className="text-muted-foreground">University of Bari • Expected 2026</p>
+            <h3 className="text-lg font-semibold text-gold mb-4">Education</h3>
+            
+            <div className="space-y-4">
+              <div>
+                <p className="text-foreground font-medium">Bachelor's Degree in Computer Science</p>
+                <p className="text-muted-foreground text-sm">University of Bari • 2023 – 2026</p>
+              </div>
+              
+              <div>
+                <p className="text-foreground font-medium">Master's Degree in Computer Science</p>
+                <p className="text-muted-foreground text-sm">University of Bari • Expected 2028</p>
               </div>
             </div>
+          </div>
+  
           </div>
         </div>
       </div>
